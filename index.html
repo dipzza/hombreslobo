@@ -11,22 +11,31 @@
   <h1>Hombres Lobo de Castronegro</h1>
 
   <div id="menu">
-    <form id="join-form">
-      <input type="text" style="text-transform:uppercase" id="join-room-code" placeholder="ID de Sala" required>
+    <form id="join-as-player-form">
+      <div>
+        <label for="room">Sala:</label>
+
+        <input type="radio" id="roomChoice1" name="room" value="A" checked/>
+        <label for="roomChoice1">A</label>
+
+        <input type="radio" id="roomChoice2" name="room" value="B" />
+        <label for="roomChoice2">B</label>
+
+        <input type="radio" id="roomChoice3" name="room" value="C" />
+        <label for="roomChoice3">C</label>
+      </div>
       <input type="text" id="nickname" placeholder="Tu nombre" required>
-      <button type="submit">Unirse a Sala</button>
+      <button type="submit" name="join-as-player">Entrar como jugador</button>
     </form>
 
-    <button id="create-btn">Crear Sala</button>
+    <button type="button" id="join-as-narrator">Entrar como narrador</button>
   </div>
 
-  <div id="host-panel" hidden>
-    <h2>ID de Sala: <span id="room-code"></span></h2>
-
-    <h2><span id="players-count">0</span> jugadores</h2>
+  <div id="narrator-view" hidden>
+    <h2>Jugadores</h2>
     <ul id="players-list"></ul>
 
-    <h2>Elige los Roles <span id="role-count-status">0/0</span></h2>
+    <h2>Elige los Roles <span id="role-count">0</span>/<span id="players-count">0</span></h2>
     <div id="role-picker"></div>
     <button id="deal-roles" disabled="true">Repartir Roles</button>
 
@@ -36,8 +45,8 @@
 
   </div>
 
-  <div id="player-panel" hidden>
-    <h2 id="waiting-to-start">Esperando a que empieze la partida...</h2>
+  <div id="player-view" hidden>
+    <h2 id="player-message">Esperando a que empieze la partida...</h2>
   </div>
 
   <script type="module" src="script.js"></script>
