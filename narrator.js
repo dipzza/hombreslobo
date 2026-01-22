@@ -47,7 +47,7 @@ document.getElementById('deal-roles').onclick = () => {
     players[i].role = shuffledRoles[i];
     players[i].conn.send({ role: shuffledRoles[i] });
   }
-  page.updatePlayers(players);
+  page.updateActivePlayers(players);
 };
 
 function shuffle(array) {

@@ -15,13 +15,14 @@ button {
   margin: 0.5rem;
 }
 
-#players-list {
+.player-list {
   list-style: none;
   padding: 0;
   margin: 1rem auto;
   text-align: center;
 }
-#players-list li {
+
+.player-list li {
   background: #f0f0f0;
   padding: 0.5rem 1rem;
   margin: 0.5rem;

@@ -5,8 +5,9 @@ export const page = {
   showPlayerView,
   showPlayerRole,
   showNarratorView,
-  updatePlayers,
-  updatePlayerCount
+  updatePlayers: updateConnectedPlayers,
+  updatePlayerCount,
+  updateActivePlayers: updateGamePlayers
 }
 
 // Main Page
@@ -36,16 +37,26 @@ function showNarratorView() {
   document.getElementById('narrator-view').hidden = false;
 }
 
-function updatePlayers(players) {
-  const playersList = document.getElementById('players-list');
+function updateConnectedPlayers(players) {
+  const playersList = document.getElementById('connected-players-list');
   playersList.innerHTML = '';
-  for (const {nickname, role} of players) {
+  for (const {nickname} of players) {
     const li = document.createElement('li');
-    li.textContent = nickname + (role ? ` (${role})` : '');
+    li.textContent = nickname;
     playersList.appendChild(li);
   }
 
   document.getElementById('players-count').textContent = players.length;
+}
+
+function updateGamePlayers(players) {
+  const activePlayersList = document.getElementById('game-players-list');
+  activePlayersList.innerHTML = '';
+  for (const {nickname, role} of players) {
+    const li = document.createElement('li');
+    li.textContent = nickname + (role ? ` (${role})` : '');
+    activePlayersList.appendChild(li);
+  }
 }
 
 function updatePlayerCount(players) {
