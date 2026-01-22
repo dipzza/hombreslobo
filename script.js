@@ -2,13 +2,21 @@ import { serverConfig } from './config/peerServer.js';
 import { roles } from './config/game.js';
 import { page } from './page.js';
 
+let joined = false;
+
 document.getElementById('join-as-player-form').addEventListener('submit', (event) => {
   event.preventDefault();
-  joinAsPlayer();
+  if (!joined) {
+    joined = true;
+    joinAsPlayer();
+  }
 });
 
 document.getElementById('join-as-narrator').addEventListener('click', () => {
-  joinAsNarratorHost();
+  if (!joined) {
+    joined = true;
+    joinAsNarratorHost();
+  }
 });
 
 function joinAsPlayer() {
@@ -62,7 +70,7 @@ function joinAsNarratorHost() {
 
     conn.on('close', () => {
       players = players.filter(p => p.conn !== conn);
-      page.updatePlayerCount(players);
+      page.updatePlayers(players);
     })
   });
 
