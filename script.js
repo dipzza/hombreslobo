@@ -1,4 +1,4 @@
-import { serverConfig } from './config/peerServer.js';
+import { roomIDToPeerID, serverConfig } from './config/peerServer.js';
 import { roles } from './config/game.js';
 import { page } from './page.js';
 
@@ -21,9 +21,10 @@ document.getElementById('join-as-narrator').addEventListener('click', () => {
 
 function joinAsPlayer() {
   const peer = new Peer({ config: serverConfig });
+  const roomID = page.getSelectedRoomID();
 
   peer.on('open', id => {
-    const conn = peer.connect(page.getSelectedRoomID());
+    const conn = peer.connect(roomIDToPeerID(roomID));
 
     conn.on('open', () => {
       conn.send({ nickname: page.getPlayerNickname() });
@@ -36,23 +37,29 @@ function joinAsPlayer() {
         page.showPlayerRole(data.role);
       }
     });
-
-    conn.on('error', err => {
-      alert("Could not connect to host: " + err.message);
-      location.reload();
-    });
   });
+
+  peer.on('error', _ => {
+    console.log("a ver")
+    alert(`La sala ${roomID} ta cerrá, espera a que la abra el narrador`);
+    peer.destroy();
+    location.reload();
+  })
 }
 
 let players = []; // {nickname, conn, role}[]
 
 function joinAsNarratorHost() {
+  const roomID = page.getSelectedRoomID();
   page.hideJoinMenu();
   page.showNarratorView();
 
-  const peer = new Peer(page.getSelectedRoomID(), { config: serverConfig });
-  peer.on('error', err => {
-    alert("Room may be in use, error: " +err.message)
+  console.log(roomIDToPeerID(roomID))
+
+  const peer = new Peer(roomIDToPeerID(roomID), { config: serverConfig });
+  peer.on('error', _ => {
+    alert(`La sala ${roomID} ta pillá, selecciona otra gracias un saludo`);
+    peer.destroy();
     location.reload();
   });
 

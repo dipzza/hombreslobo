@@ -10,3 +10,10 @@ const iceServers = await response.json();
 export const serverConfig = {
   iceServers
 }
+export function roomIDToPeerID(roomID) {
+  return {
+    'A': ROOM_A_ID,
+    'B': ROOM_B_ID,
+    'C': ROOM_C_ID
+  }[roomID];
+}

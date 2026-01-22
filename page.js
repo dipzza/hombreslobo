@@ -1,5 +1,3 @@
-import { ROOM_A_ID, ROOM_B_ID, ROOM_C_ID } from "./config/peerServer.js";
-
 export const page = {
   getSelectedRoomID,
   getPlayerNickname,
@@ -11,16 +9,9 @@ export const page = {
   updatePlayerCount
 }
 
-const roomRadioOptionToRoomId = {
-  'A': ROOM_A_ID,
-  'B': ROOM_B_ID,
-  'C': ROOM_C_ID,
-};
-
 // Main Page
 function getSelectedRoomID() {
-  const roomCheckedOption = document.querySelector('input[name="room"]:checked');
-  return roomRadioOptionToRoomId[roomCheckedOption.value];
+  return document.querySelector('input[name="room"]:checked').value;
 }
 
 function getPlayerNickname() {
